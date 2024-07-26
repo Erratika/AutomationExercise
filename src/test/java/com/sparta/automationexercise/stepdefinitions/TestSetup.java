@@ -59,11 +59,5 @@ public class TestSetup {
         webDriver.get(url);
         return new Website(webDriver);
     }
-
-    public static void login(Website website) {
-        website.getHomePage().enterUserName("standard_user");
-        website.getHomePage().enterPassword("secret_sauce");
-        website.getHomePage().clickLoginButton();
-    }
 }
 
