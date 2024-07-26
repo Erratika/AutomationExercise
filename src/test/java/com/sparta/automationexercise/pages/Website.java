@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public class Website {
     private HomePage homePage;
+    private LoginPage loginPage;
     private WebDriver webDriver;
 
     public Website(WebDriver webDriver) {
@@ -21,5 +22,9 @@ public class Website {
 
     public String getPageTitle(){
         return webDriver.getTitle();
+    }
+
+    public LoginPage getLoginPage(){
+        return loginPage;
     }
 }

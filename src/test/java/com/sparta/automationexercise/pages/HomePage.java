@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class HomePage {
     private WebDriver webDriver;
 
-    private By loginButton = new By.ByCssSelector("#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(4) > a");
+    private By loginButton = new By.ByCssSelector("#header a[href=\"/login\"]\n");
 
     public HomePage(WebDriver webDriver) {
         this.webDriver = webDriver;
