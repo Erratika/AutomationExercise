@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public class Website {
     private HomePage homePage;
+    private LoginPage loginPage;
     private WebDriver webDriver;
     private CartPage cartPage;
 
@@ -26,5 +27,9 @@ public class Website {
 
     public CartPage getCartPage() {
         return cartPage;
+    }
+
+    public LoginPage getLoginPage(){
+        return loginPage;
     }
 }

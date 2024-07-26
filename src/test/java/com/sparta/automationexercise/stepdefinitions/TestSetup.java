@@ -1,5 +1,6 @@
 package com.sparta.automationexercise.stepdefinitions;
 
+import com.sparta.automationexercise.pages.HomePage;
 import com.sparta.automationexercise.pages.Website;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -58,12 +59,6 @@ public class TestSetup {
         createWebdriver();
         webDriver.get(url);
         return new Website(webDriver);
-    }
-
-    public static void login(Website website) {
-        website.getHomePage().enterUserName("standard_user");
-        website.getHomePage().enterPassword("secret_sauce");
-        website.getHomePage().clickLoginButton();
     }
 }
 
