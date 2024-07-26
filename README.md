@@ -20,6 +20,7 @@ Immediately following our meeting our first course of action was to initialise a
 We then proceeded to take a manual look around the website and identify what features that the website has that could be appropriate for testing in our framework. Here is a list of some of the functionallity we identified that could be tested:
 - Sign-up
 - Login
+- Account Management
 - Basket
 - Checkout 
 - Search & Categorisation
