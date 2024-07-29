@@ -15,7 +15,9 @@ public class TestSetup {
     private static ChromeDriverService service;
     private static WebDriver webDriver;
 
-    private static final String DRIVER_LOCATION = "src/test/resources/chromedriver";
+    private static final String DRIVER_LOCATION_MAC = "src/test/resources/chromedriver";
+    private static final String DRIVER_LOCATION_WINDOWS = "src/test/resources/chromedriver.exe";
+
 
     public static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
@@ -28,6 +30,14 @@ public class TestSetup {
 
     public static void startChromeService() throws IOException {
         if (service == null) {
+            String os = System.getProperty("os.name");
+            String DRIVER_LOCATION;
+            if (os.toLowerCase().contains("windows")) {
+                 DRIVER_LOCATION = DRIVER_LOCATION_WINDOWS;
+            }
+            else{
+                DRIVER_LOCATION = DRIVER_LOCATION_MAC;
+            }
             service = new ChromeDriverService.Builder()
                     .usingDriverExecutable(new File(DRIVER_LOCATION))
                     .usingAnyFreePort()

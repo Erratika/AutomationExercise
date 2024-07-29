@@ -3,14 +3,19 @@ package com.sparta.automationexercise.pages;
 import org.openqa.selenium.WebDriver;
 
 public class Website {
-    private HomePage homePage;
-    private LoginPage loginPage;
-    private WebDriver webDriver;
-    private CartPage cartPage;
+    private final HomePage homePage;
+    private final LoginPage loginPage;
+    private final WebDriver webDriver;
+    private final CartPage cartPage;
+    private final ProductDetailsPage productDetailsPage;
 
     public Website(WebDriver webDriver) {
         this.webDriver = webDriver;
         homePage = new HomePage(webDriver);
+        cartPage = new CartPage(webDriver);
+        loginPage = new LoginPage(webDriver);
+        productDetailsPage = new ProductDetailsPage(webDriver);
+
     }
 
     public HomePage getHomePage(){
@@ -31,5 +36,9 @@ public class Website {
 
     public LoginPage getLoginPage(){
         return loginPage;
+    }
+
+    public ProductDetailsPage getProductDetailsPage() {
+        return productDetailsPage;
     }
 }

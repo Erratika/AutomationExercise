@@ -14,6 +14,6 @@ public class LoginTests extends TestSetup {
     @DisplayName("Given I enter a valid name and email, when i click sign up, then i should land on more account information page")
     public void firstLoginPageTest(){
         website.getHomePage().clickLoginButton();
-        website.getLoginPage().enterName();
+        website.getLoginPage().enterName("");
     }
 }

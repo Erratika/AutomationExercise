@@ -10,6 +10,8 @@ public abstract class BasePage {
 	private final By navHomeLink = new By.ByLinkText(" Home");
 	private final By navCartLink = new By.ByLinkText(" Cart");
 	private final By navLoginLink = new By.ByLinkText(" Signup / Login");
+	private final By subscriptionEmailInput = By.id("subscribe_email");
+	private final By subscribeButton = By.id("subscribe");
 
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
@@ -28,6 +30,14 @@ public abstract class BasePage {
 	}
 	public void clickNavLoginLink() {
 		driver.findElement(navLoginLink).click();
+	}
+
+	public void setSubscriptionEmailInput(String email) {
+		driver.findElement(subscriptionEmailInput).sendKeys(email);
+	}
+
+	public void clickSubscribeButton() {
+		driver.findElement(subscribeButton).click();
 	}
 
 
