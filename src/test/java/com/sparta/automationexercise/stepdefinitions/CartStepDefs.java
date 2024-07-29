@@ -34,12 +34,12 @@ public class CartStepDefs {
 
 	@Before
 	public void setup() {
-		TestSetup.createWebdriver();
+		TestSetup.createWebDriver();
 	}
 
 	@After
 	public void afterEach() {
-		TestSetup.quitWebdriver();
+		TestSetup.quitWebDriver();
 	}
 
 	@Given("that I have not previously added any items to my basket,")

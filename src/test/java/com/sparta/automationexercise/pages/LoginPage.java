@@ -14,12 +14,18 @@ public class LoginPage {
     }
 
     public void enterName(String name){
+
         webDriver.findElement(nameField).sendKeys(name);
     }
     public void enterEmail(String email){
+
         webDriver.findElement(emailField).sendKeys(email);
     }
     public void clickSignupButton(){
+
         webDriver.findElement(signupButton).click();
     }
+
+
+
 }

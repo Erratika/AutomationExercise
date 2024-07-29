@@ -7,10 +7,15 @@ public class Website {
     private LoginPage loginPage;
     private WebDriver webDriver;
     private CartPage cartPage;
+    private SignupPage signupPage;
 
     public Website(WebDriver webDriver) {
         this.webDriver = webDriver;
+
         homePage = new HomePage(webDriver);
+        loginPage = new LoginPage(webDriver);
+        cartPage = new CartPage(webDriver);
+        signupPage = new SignupPage(webDriver);
     }
 
     public HomePage getHomePage(){
@@ -31,5 +36,8 @@ public class Website {
 
     public LoginPage getLoginPage(){
         return loginPage;
+    }
+    public SignupPage getSignupPage(){
+        return signupPage;
     }
 }
