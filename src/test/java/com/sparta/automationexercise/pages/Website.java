@@ -8,14 +8,16 @@ public class Website {
     private final WebDriver webDriver;
     private final CartPage cartPage;
     private final ProductDetailsPage productDetailsPage;
+    private SignupPage signupPage;
 
     public Website(WebDriver webDriver) {
         this.webDriver = webDriver;
+
         homePage = new HomePage(webDriver);
         cartPage = new CartPage(webDriver);
         loginPage = new LoginPage(webDriver);
         productDetailsPage = new ProductDetailsPage(webDriver);
-
+        signupPage = new SignupPage(webDriver);
     }
 
     public HomePage getHomePage(){
@@ -40,5 +42,8 @@ public class Website {
 
     public ProductDetailsPage getProductDetailsPage() {
         return productDetailsPage;
+    }
+    public SignupPage getSignupPage(){
+        return signupPage;
     }
 }

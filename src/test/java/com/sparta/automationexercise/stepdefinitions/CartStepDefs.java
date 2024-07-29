@@ -36,12 +36,12 @@ public class CartStepDefs {
 
 	@Before
 	public void setup() {
-		TestSetup.createWebdriver();
+		TestSetup.createWebDriver();
 	}
 
 	@After
 	public void afterEach() {
-		TestSetup.quitWebdriver();
+		TestSetup.quitWebDriver();
 	}
 
 	@Given("that there are no items in my cart,")

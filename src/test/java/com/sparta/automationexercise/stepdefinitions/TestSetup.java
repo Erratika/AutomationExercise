@@ -1,6 +1,5 @@
 package com.sparta.automationexercise.stepdefinitions;
 
-import com.sparta.automationexercise.pages.HomePage;
 import com.sparta.automationexercise.pages.Website;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -46,27 +45,27 @@ public class TestSetup {
         }
     }
 
-    static void stopService() {
+    public static void stopService() {
         if (service != null && service.isRunning()) {
             service.stop();
         }
     }
 
-    static void createWebdriver() {
+    public static void createWebDriver() {
         if (webDriver == null) {
             webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
         }
     }
 
-    static void quitWebdriver() {
+    public static void quitWebDriver() {
         if (webDriver != null) {
             webDriver.quit();
             webDriver = null;
         }
     }
 
-    static Website getWebsite(String url) {
-        createWebdriver();
+    public static Website getWebsite(String url) {
+        createWebDriver();
         webDriver.get(url);
         return new Website(webDriver);
     }
