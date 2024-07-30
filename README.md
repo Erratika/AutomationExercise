@@ -89,6 +89,9 @@ Unfortunately it felt like we spent a lot of time being stuck on how to deal wit
 While we were unsuccessful in identifying any defects we feel like we could easily expand our existing framework and test scenarios to accommodate a lot more tests of feature functionallity.
 
 # Contributors
-Marc - README, Cart Gherkin script, Cucumber scenarios and relevant pages. Also refactoring to improve reusability of the test framework including addition of BasePage
-Mamoon - Setting up the runner for the selenium/chrome web driver, Login and Signup Gherkin script, cucumber scenario and relevant pages for selenium automation.
-Selam - Assisted Mamoon with implementation of the automated testing of the Login and Signup features.
+- Marc
+  - README, Cart Gherkin script, Cucumber scenarios and relevant pages. Also refactoring to improve reusability of the test framework including addition of BasePage\
+- Mamoon
+  - Setting up the runner for the selenium/chrome web driver, Login and Signup Gherkin script, cucumber scenario and relevant pages for selenium automation.
+- Selam
+  - Assisted Mamoon with implementation of the automated testing of the Login and Signup features.
