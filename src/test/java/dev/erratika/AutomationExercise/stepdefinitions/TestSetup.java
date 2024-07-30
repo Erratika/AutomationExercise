@@ -1,6 +1,6 @@
-package com.sparta.automationexercise.stepdefinitions;
+package dev.erratika.AutomationExercise.stepdefinitions;
 
-import com.sparta.automationexercise.pages.Website;
+import dev.erratika.AutomationExercise.pages.Website;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;

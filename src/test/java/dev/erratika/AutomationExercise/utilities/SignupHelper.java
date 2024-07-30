@@ -1,6 +1,6 @@
-package com.sparta.automationexercise.utilities;
+package dev.erratika.AutomationExercise.utilities;
 
-import com.sparta.automationexercise.pages.SignupPage;
+import dev.erratika.AutomationExercise.pages.SignupPage;
 
 import java.util.Map;
 

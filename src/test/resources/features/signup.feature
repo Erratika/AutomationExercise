@@ -10,14 +10,14 @@ Feature: Sign Up
     Given I am on the sign up page
     When I enter sign up details with:
       | username      | standard_user          |
-      | email         | monimak505@mfunza.com  |
+      | email         | vimicab228@mfunza.com  |
 
     And I click the sign up button
     Then I should be redirected to enter account information page
     When I enter account information with:
       | title        | Mr.                  |
       | name         | fname                |
-      | email        | monimak505@mfunza.com|
+      | email        | vimicab228@mfunza.com|
       | password     | test                 |
       | date_of_birth| 01/01/1990           |
       | newsletter     | true               |

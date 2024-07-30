@@ -1,4 +1,4 @@
-package com.sparta.automationexercise.pages;
+package dev.erratika.AutomationExercise.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

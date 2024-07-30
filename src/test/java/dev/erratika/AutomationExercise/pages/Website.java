@@ -1,8 +1,6 @@
-package com.sparta.automationexercise.pages;
+package dev.erratika.AutomationExercise.pages;
 
 import org.openqa.selenium.WebDriver;
-
-import java.util.Objects;
 
 public class Website {
 	private static final String BASE_URL = "https://automationexercise.com/";

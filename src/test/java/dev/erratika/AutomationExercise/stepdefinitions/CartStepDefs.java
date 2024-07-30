@@ -1,6 +1,6 @@
-package com.sparta.automationexercise.stepdefinitions;
+package dev.erratika.AutomationExercise.stepdefinitions;
 
-import com.sparta.automationexercise.pages.*;
+import dev.erratika.AutomationExercise.pages.*;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
