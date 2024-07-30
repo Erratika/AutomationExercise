@@ -1,6 +1,6 @@
 package com.sparta.automationexercise.stepdefinitions;
 
-import com.sparta.automationexercise.pages.Website;
+import com.sparta.automationexercise.pages.*;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
@@ -10,19 +10,22 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Assertions;
+
+
+import static org.hamcrest.Matchers.*;
 
 import java.io.IOException;
 
 public class CartStepDefs {
-	private static final String BASE_URL = "https://automationexercise.com";
 
+
+	private static final String BASE_URL = "https://automationexercise.com";
 	private static final String PRODUCTS_PATH = "/products";
 	private final static String CART_PATH = "/view_cart";
 	private final static String PRODUCT_DETAILS_PATH = "/product_details";
-
 	private Website website;
-
 
 	@BeforeAll
 	public static void beforeAll() throws IOException {
@@ -44,43 +47,54 @@ public class CartStepDefs {
 		TestSetup.quitWebDriver();
 	}
 
-	@Given("that there are no items in my cart,")
+	@Given("when i am on the home page,")
 	public void thatIHaveNotPreviouslyAddedAnyItemsToMyCart() {
-		website = TestSetup.getWebsite(BASE_URL + CART_PATH);
-		Assertions.assertTrue(website.getCartPage().isCartEmpty());
+		website = TestSetup.getWebsite(BASE_URL);
 	}
 
 	@When("I go to view the contents of my cart,")
 	public void iGoToViewTheContentsOfMyCart() {
-		website = TestSetup.getWebsite(BASE_URL + CART_PATH);
+		CartAddablePage cartAddablePage = (CartAddablePage) website.setPage(TestSetup.getWebDriver());
+		cartAddablePage.clickViewCart();
 	}
 
 	@Then("it should be empty.")
 	public void itShouldBeEmpty() {
-		Assertions.assertTrue(website.getCartPage().isCartEmpty());
+		website = TestSetup.getWebsite(BASE_URL + CART_PATH);
+		CartPage cartPage = (CartPage) website.setPage(TestSetup.getWebDriver());
+		Assertions.assertTrue(cartPage.isCartEmpty());
 	}
 
 	@Given("that I am on the products list page,")
 	public void thatIAmOnTheProductsListPage() {
-		website = TestSetup.getWebsite(BASE_URL);
+		website = TestSetup.getWebsite(BASE_URL + PRODUCTS_PATH);
 	}
 
-	@When("I click to add a product to the cart,")
-	public void iClickToAddAProductToTheCart() {
+	@When("I click to add a product {string} to the cart,")
+	public void iClickToAddAProductToTheCart(String productName) {
+
+		ProductsListPage productsListPage = (ProductsListPage) website.setPage(TestSetup.getWebDriver());
+		productsListPage.addProductToCart(productName);
 	}
 
-	@Given("that there are items in my cart,")
-	public void thatThereAreItemsInMyCart() {
-		website = TestSetup.getWebsite(BASE_URL + CART_PATH);
-		Assertions.assertTrue(website.getCartPage().numOfProductsInCart()>=1);
+	@Given("that item {string} is in my cart,")
+	public void thatThereAreItemsInMyCart(String productName) {
+		website = TestSetup.getWebsite(BASE_URL + PRODUCTS_PATH);
+		ProductsListPage productsListPage = (ProductsListPage) website.setPage(TestSetup.getWebDriver());
+		productsListPage.addProductToCart(productName);
 	}
 
-	@When("I click to remove an item from my cart,")
-	public void iClickToRemoveAnItemFromMyCart() {
+	@When("I click to remove item {string} from my cart,")
+	public void iClickToRemoveAnItemFromMyCart(String productName) {
+		CartPage cartPage = (CartPage) website.setPage(TestSetup.getWebDriver());
+		cartPage.removeItemFromCart(productName);
 	}
 
-	@Then("the item I removed should no longer be in my cart.")
-	public void theItemIRemovedShouldNoLongerBeInMyCart() {
+	@Then("the item {string} should no longer be in my cart.")
+	public void theItemIRemovedShouldNoLongerBeInMyCart(String productName) {
+		CartPage cartPage = (CartPage) website.setPage(TestSetup.getWebDriver());
+		Assertions.assertFalse(cartPage.itemInCart(productName));
+
 	}
 
 	@Given("that I am on a product view page,")
@@ -90,16 +104,38 @@ public class CartStepDefs {
 
 	@When("I increase the quantity to {int},")
 	public void iIncreaseTheQuantityTo(int quantity) {
-		website.getProductDetailsPage().setQuantityInput(quantity);
+		ProductDetailsPage productDetailsPage = (ProductDetailsPage) website.setPage(TestSetup.getWebDriver());
 
-
+		productDetailsPage.setQuantityInput(quantity);
 	}
 
 	@And("click add to cart,")
 	public void clickAddToCart() {
+		ProductDetailsPage productDetailsPage = (ProductDetailsPage) website.setPage(TestSetup.getWebDriver());
+		productDetailsPage.addToCart();
 	}
 
-	@Then("{int} quantities of that item should be added to the cart.")
-	public void quantitiesOfThatItemShouldBeAddedToTheTheCart(int arg0) {
+	@Then("{int} quantities of product {string} should be added to the cart.")
+	public void quantitiesOfThatItemShouldBeAddedToTheTheCart(int expectedQuantity, String product) {
+		CartPage cartPage = new CartPage(TestSetup.getWebDriver());
+		MatcherAssert.assertThat(cartPage.getQuantityOfItemInCart(product), is(expectedQuantity));
+	}
+
+	@Given("that I am on a product view page for product {string},")
+	public void thatIAmOnAProductViewPageForProduct(String productName) {
+		website = TestSetup.getWebsite(BASE_URL + PRODUCTS_PATH);
+		ProductsListPage productsListPage = (ProductsListPage) website.setPage(TestSetup.getWebDriver());
+		productsListPage.dismissConsentDialog();
+
+		website = TestSetup.getWebsite(productsListPage.getProductLink(productName));
+
+	}
+
+	@When("I go to view the contents of my cart from nav,")
+	public void iGoToViewTheContentsOfMyCartFromNav() {
+		website = TestSetup.getWebsite(BASE_URL + CART_PATH);
+		BasePage basePage = website.setPage(TestSetup.getWebDriver());
+		basePage.dismissConsentDialog();
+		basePage.clickNavCartLink();
 	}
 }

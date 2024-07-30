@@ -21,7 +21,7 @@ public class TestSetup {
     public static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
-        options.addArguments("--headless");
+        //options.addArguments("--headless");
         options.addArguments("--remote-allow-origins=*");
         options.setImplicitWaitTimeout(Duration.ofSeconds(10));
         return options;
@@ -68,6 +68,10 @@ public class TestSetup {
         createWebDriver();
         webDriver.get(url);
         return new Website(webDriver);
+    }
+
+    public static WebDriver getWebDriver() {
+        return webDriver;
     }
 }
 

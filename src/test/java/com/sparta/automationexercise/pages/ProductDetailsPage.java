@@ -4,14 +4,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ProductDetailsPage extends BasePage {
+import java.time.Duration;
+import java.util.function.Function;
+
+public class ProductDetailsPage extends CartAddablePage {
 
 	private final By quantityInput = By.id("quantity");
-	private final By quantityInputIncrease = By.xpath("//span[@title='Increase value']");
-	private final By quantityInputDecrease = By.xpath("//span[@title='Decrease value']");
-	private final By addToCartButton = By.cssSelector(".cart");
-	private final By addToCartConfirmationButton =By.cssSelector(".btn-success");
+	private final By addToCartButton = By.cssSelector("button.cart");
+
 
 	private final By reviewNameInput = By.id("name");
 	private final By reviewEmailInput = By.id("email");
@@ -29,14 +33,11 @@ public class ProductDetailsPage extends BasePage {
 	public void setQuantityInput(Integer quantity) {
 		Actions increaseAction = new Actions(driver);
 		WebElement quantityElement = driver.findElement(quantityInput);
-		increaseAction.sendKeys(quantityElement,quantity.toString()).perform();
-	}
-	public void decreaseQuantity() {
-		driver.findElement(quantityInputDecrease).click();
+		increaseAction.doubleClick(quantityElement).sendKeys(quantityElement,quantity.toString()).perform();
 	}
 	public void addToCart (){
-		driver.findElement(addToCartButton).click();
-		driver.findElement(addToCartConfirmationButton).click();
+		Actions addToCartAction = new Actions(driver);
+		addToCartAction.click(driver.findElement(addToCartButton)).perform();
 	}
 	public void setReviewName(String reviewName) {
 		driver.findElement(reviewNameInput).sendKeys(reviewName);

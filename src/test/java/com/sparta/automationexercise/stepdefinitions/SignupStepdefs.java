@@ -16,6 +16,7 @@ import io.cucumber.java.en.When;
 import org.hamcrest.MatcherAssert;
 
 import static org.hamcrest.Matchers.is;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -25,93 +26,95 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.containsString;
 
 public class SignupStepdefs {
-    private static Website website;
-    private static HomePage homePage;
-    private static LoginPage loginPage;
-    private static SignupPage signupPage;
-    private static final String BASE_URL = "https://automationexercise.com/";
+	private static final String BASE_URL = "https://automationexercise.com";
+	private final static String LOGIN_PATH = "/login";
+	private final static String SIGNUP_PATH = "/signup";
+	private Website website;
 
-    @BeforeAll
-    public static void beforeAll() throws IOException {
-        TestSetup.startChromeService();
-    }
+	@BeforeAll
+	public static void beforeAll() throws IOException {
+		TestSetup.startChromeService();
+	}
 
-    @AfterAll
-    public static void afterAll(){
-        TestSetup.stopService();
-    }
+	@AfterAll
+	public static void afterAll() {
+		TestSetup.stopService();
+	}
 
-    @After
-    public void afterEach(){
-        TestSetup.quitWebDriver();
-    }
+	@Before
+	public static void setup() {
+		TestSetup.createWebDriver();
+	}
 
-    @Before
-    public static void setup(){
-        TestSetup.createWebDriver();
-        website = TestSetup.getWebsite(BASE_URL);
-        homePage = website.getHomePage();
-    }
+	@After
+	public void afterEach() {
+		TestSetup.quitWebDriver();
+	}
 
-    @Given("I am on the sign up page")
-    public void iAmOnTheSignUpPage() {
-        website = TestSetup.getWebsite(BASE_URL);
-        homePage.clickLoginButton();
-        MatcherAssert.assertThat(website.getCurrentUrl(), is(BASE_URL + "login"));
+	@Given("I am on the sign up page")
+	public void iAmOnTheSignUpPage() {
+		website = TestSetup.getWebsite(BASE_URL);
+		HomePage homePage = (HomePage) website.setPage(TestSetup.getWebDriver());
+		homePage.clickLoginButton();
+		MatcherAssert.assertThat(website.getCurrentUrl(), is(BASE_URL + LOGIN_PATH));
 
-    }
+	}
 
-    @When("I enter sign up details with:")
-    public void iEnterSignUpDetailsWith(DataTable dataTable) {
-        Map<String, String> data = dataTable.asMap(String.class, String.class);
-        website.getLoginPage().enterName(data.get("username"));
-        website.getLoginPage().enterEmail(data.get("email"));
-    }
+	@When("I enter sign up details with:")
+	public void iEnterSignUpDetailsWith(DataTable dataTable) {
+		Map<String, String> data = dataTable.asMap(String.class, String.class);
+		LoginPage loginPage = (LoginPage) website.setPage(TestSetup.getWebDriver());
+		loginPage.enterName(data.get("username"));
+		loginPage.enterEmail(data.get("email"));
+	}
 
-    @And("I click the sign up button")
-    public void iClickTheSignUpButton() {
-        website.getLoginPage().clickSignupButton();
-    }
+	@And("I click the sign up button")
+	public void iClickTheSignUpButton() {
+		LoginPage loginPage = (LoginPage) website.setPage(TestSetup.getWebDriver());
+		loginPage.clickSignupButton();
+	}
 
-    @Then("I should be redirected to enter account information page")
-    public void iShouldBeRedirectedToEnterAccountInformationPage() {
-        MatcherAssert.assertThat(website.getCurrentUrl(), is(BASE_URL + "signup"));
-    }
+	@Then("I should be redirected to enter account information page")
+	public void iShouldBeRedirectedToEnterAccountInformationPage() {
+		MatcherAssert.assertThat(website.getCurrentUrl(), is(BASE_URL + SIGNUP_PATH));
+	}
 
-    @When("I enter account information with:")
-    public void iEnterAccountInformationWith(DataTable dataTable) {
-        Map<String, String> data = dataTable.asMap(String.class, String.class);
-        website.getSignupPage().selectTitleM(data.get("title"));
-        website.getSignupPage().enterName(data.get("name"));
-        website.getSignupPage().enterPassword(data.get("password"));
+	@When("I enter account information with:")
+	public void iEnterAccountInformationWith(DataTable dataTable) {
+		Map<String, String> data = dataTable.asMap(String.class, String.class);
+		SignupPage signupPage = (SignupPage) website.setPage(TestSetup.getWebDriver());
+		signupPage.selectTitleM(data.get("title"));
+		signupPage.enterName(data.get("name"));
+		signupPage.enterPassword(data.get("password"));
 
-        String [] dob = data.get("date_of_birth").split("/");
-        website.getSignupPage().selectDOBDay(dob[0], dob[1], dob[2]);
+		String[] dob = data.get("date_of_birth").split("/");
+		signupPage.selectDOBDay(dob[0], dob[1], dob[2]);
 
-        if (Boolean.parseBoolean(data.get("newsletter"))) {
-            website.getSignupPage().checkNewsletter();
-        }
-        if (Boolean.parseBoolean(data.get("offers"))) {
-            website.getSignupPage().checkOption();
-        }
+		if (Boolean.parseBoolean(data.get("newsletter"))) {
+			signupPage.checkNewsletter();
+		}
+		if (Boolean.parseBoolean(data.get("offers"))) {
+			signupPage.checkOption();
+		}
 
-        website.getSignupPage().enterFirstName(data.get("first_name"));
-        website.getSignupPage().enterLastName(data.get("last_name"));
-        website.getSignupPage().enterAddress(data.get("address"));
-        website.getSignupPage().selectCountry(data.get("country"));
-        website.getSignupPage().enterState(data.get("state"));
-        website.getSignupPage().enterCity(data.get("city"));
-        website.getSignupPage().enterZipcode(data.get("zipcode"));
-        website.getSignupPage().enterMobileNumber(data.get("mobile_number"));
-    }
+		signupPage.enterFirstName(data.get("first_name"));
+		signupPage.enterLastName(data.get("last_name"));
+		signupPage.enterAddress(data.get("address"));
+		signupPage.selectCountry(data.get("country"));
+		signupPage.enterState(data.get("state"));
+		signupPage.enterCity(data.get("city"));
+		signupPage.enterZipcode(data.get("zipcode"));
+		signupPage.enterMobileNumber(data.get("mobile_number"));
+	}
 
-    @And("I click the create account button")
-    public void iClickTheCreateAccountButton() {
-        website.getSignupPage().clickCreateAccountButton();
-    }
+	@And("I click the create account button")
+	public void iClickTheCreateAccountButton() {
+		SignupPage signupPage = (SignupPage) website.setPage(TestSetup.getWebDriver());
+		signupPage.clickCreateAccountButton();
+	}
 
-    @Then("I should see the account created page with a welcome message")
-    public void iShouldSeeTheAccountCreatedPageWithAWelcomeMessage() {
-        MatcherAssert.assertThat(website.getCurrentUrl(), is(BASE_URL + "account_created"));
-    }
+	@Then("I should see the account created page with a welcome message")
+	public void iShouldSeeTheAccountCreatedPageWithAWelcomeMessage() {
+		MatcherAssert.assertThat(website.getCurrentUrl(), is(BASE_URL + "account_created"));
+	}
 }
